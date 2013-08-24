@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
 	private Box2dWorld mBox2d;
 
 	public GameScreen() {
-		mStage = new Stage(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+		mStage = new Stage(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, true);
 		Gdx.input.setInputProcessor(mStage);
 		mWorld = new World(mStage);
 	}
@@ -48,31 +48,38 @@ public class GameScreen implements Screen {
 		mBox2d.loadCollisions(collisionFile, assets);
 
 		Hacker hacker = new Hacker(atlas, mBox2d);
-		Vector2 pos = new Vector2(32, 32);// mMap.findEntrance();
+		Vector2 pos = mMap.findEntrance();
 		hacker.setBounds(pos.x, pos.y, 16, 16);
 		mStage.addActor(hacker);
+		mStage.setKeyboardFocus(hacker);
+		mWorld.lookAt(pos);
 
 		mMoverManager = new ActorWorldMoverManager(mWorld, atlas);
+		mMoverManager.setActor(hacker);
 
 		mOverlay = new Overlay();
+		mOverlay.setVisible(false);
 		mMoverManager.addToOverlay(mOverlay);
+		mWorld.addMoveListener(mOverlay);
 		mStage.addActor(mOverlay);
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1f, 1f, 1f, 1f);
+		Gdx.gl.glClearColor(0.0f, 0.2f, 0.7f, 1f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		mStage.act(delta);
 		mBox2d.act(delta);
 		mMap.draw();
 		mStage.draw();
-		mBox2d.debugDraw(mStage.getCamera());
+//		mBox2d.debugDraw(mStage.getCamera());
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		width /= 2;
+		height /= 2;
 		Camera cam = mStage.getCamera();
 		Vector3 pos = cam.position;
 		float x = pos.x - cam.viewportWidth / 2;

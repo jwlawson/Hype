@@ -11,7 +11,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public abstract class WorldMoverManager {
 
 	private static final String TAG = "WorldMoverManager";
-	private static final int MOVER_SIZE = 100;
+	private static final int MOVER_SIZE = 50;
+	private static final int EXTRA = 100;
 
 	protected HashMap<Position, WorldMover> movers = new HashMap<Position, WorldMover>();
 
@@ -33,28 +34,29 @@ public abstract class WorldMoverManager {
 	public void setSize(int width, int height) {
 
 		WorldMover bot = movers.get(Position.BOTTOM);
-		bot.setBounds(MOVER_SIZE, 0, width - 2 * MOVER_SIZE, MOVER_SIZE);
+		bot.setBounds(MOVER_SIZE, -EXTRA, width - 2 * MOVER_SIZE, MOVER_SIZE + EXTRA);
 
 		WorldMover bl = movers.get(Position.BOTTOM_LEFT);
-		bl.setBounds(0, 0, MOVER_SIZE, MOVER_SIZE);
+		bl.setBounds(-EXTRA, -EXTRA, MOVER_SIZE + EXTRA, MOVER_SIZE + EXTRA);
 
 		WorldMover br = movers.get(Position.BOTTOM_RIGHT);
-		br.setBounds(width - MOVER_SIZE, 0, MOVER_SIZE, MOVER_SIZE);
+		br.setBounds(width - MOVER_SIZE, -EXTRA, MOVER_SIZE + EXTRA, MOVER_SIZE + EXTRA);
 
 		WorldMover l = movers.get(Position.LEFT);
-		l.setBounds(0, MOVER_SIZE, MOVER_SIZE, height - 2 * MOVER_SIZE);
+		l.setBounds(-EXTRA, MOVER_SIZE, MOVER_SIZE + EXTRA, height - 2 * MOVER_SIZE);
 
 		WorldMover tl = movers.get(Position.TOP_LEFT);
-		tl.setBounds(0, height - MOVER_SIZE, MOVER_SIZE, MOVER_SIZE);
+		tl.setBounds(-EXTRA, height - MOVER_SIZE, MOVER_SIZE + EXTRA, MOVER_SIZE + EXTRA);
 
 		WorldMover t = movers.get(Position.TOP);
-		t.setBounds(MOVER_SIZE, height - MOVER_SIZE, width - 2 * MOVER_SIZE, MOVER_SIZE);
+		t.setBounds(MOVER_SIZE, height - MOVER_SIZE, width - 2 * MOVER_SIZE, MOVER_SIZE + EXTRA);
 
 		WorldMover tr = movers.get(Position.TOP_RIGHT);
-		tr.setBounds(width - MOVER_SIZE, height - MOVER_SIZE, MOVER_SIZE, MOVER_SIZE);
+		tr.setBounds(width - MOVER_SIZE, height - MOVER_SIZE, MOVER_SIZE + EXTRA, MOVER_SIZE
+				+ EXTRA);
 
 		WorldMover r = movers.get(Position.RIGHT);
-		r.setBounds(width - MOVER_SIZE, MOVER_SIZE, MOVER_SIZE, height - 2 * MOVER_SIZE);
+		r.setBounds(width - MOVER_SIZE, MOVER_SIZE, MOVER_SIZE + EXTRA, height - 2 * MOVER_SIZE);
 	}
 
 	public void addToOverlay(Overlay overlay) {

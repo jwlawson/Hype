@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -145,6 +146,22 @@ public class World {
 		for (MoveListener listener : listeners) {
 			listener.worldMovingBy(deltaX, deltaY);
 		}
+	}
+
+	/** Point the camera at the specified point, or the closest to it while remaining in the map */
+	public void lookAt(float x, float y) {
+		Camera cam = stage.getCamera();
+		Vector3 position = cam.position;
+		float xCur = position.x;
+		float yCur = position.y;
+
+		float xMove = x - xCur;
+		float yMove = y - yCur;
+		moveBy(xMove, yMove);
+	}
+
+	public void lookAt(Vector2 pos) {
+		lookAt(pos.x, pos.y);
 	}
 
 	public interface MoveListener {

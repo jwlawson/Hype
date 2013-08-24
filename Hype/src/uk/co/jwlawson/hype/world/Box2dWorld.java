@@ -16,12 +16,14 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Box2dWorld {
 
 	public static final float PIXELS_PER_METER = 60;
+	private static float SCALE;
 	private WorldMap mMap;
 	private World mWorld;
 	private Box2DDebugRenderer renderer;
 
 	public Box2dWorld(WorldMap map) {
 		mMap = map;
+		SCALE = mMap.getScale();
 		mWorld = new World(new Vector2(0f, -10f), true);
 		renderer = new Box2DDebugRenderer();
 	}
@@ -34,7 +36,6 @@ public class Box2dWorld {
 	 * Draw the collision boundaries
 	 */
 	public void debugDraw(Camera cam) {
-
 		renderer.render(mWorld,
 				cam.combined.scale(PIXELS_PER_METER, PIXELS_PER_METER, PIXELS_PER_METER));
 	}
@@ -76,16 +77,7 @@ public class Box2dWorld {
 
 		String[] lines = loadFile(collisionsFile, assets);
 
-		HashMap<Integer, ArrayList<LineSegment>> tileCollisionJoints = new HashMap<Integer, ArrayList<LineSegment>>();
-
-		/**
-		 * Some locations on the map (perhaps most locations) are "undefined",
-		 * empty space, and will have the tile type 0. This code adds an empty
-		 * list of line segments for this "default" tile.
-		 */
-		tileCollisionJoints.put(Integer.valueOf(0), new ArrayList<LineSegment>());
-
-		generateLineSegments(lines, tileCollisionJoints);
+		HashMap<Integer, ArrayList<LineSegment>> tileCollisionJoints = generateCollisionJoints(lines);
 
 		ArrayList<LineSegment> collisionLineSegments = new ArrayList<LineSegment>();
 		combineSegmentsIfPossible(tileCollisionJoints, collisionLineSegments);
@@ -96,6 +88,21 @@ public class Box2dWorld {
 		addLineSegmentsToBody(collisionLineSegments, groundBody);
 
 		generateWorldBounds(groundBody);
+	}
+
+	private HashMap<Integer, ArrayList<LineSegment>> generateCollisionJoints(String[] lines) {
+
+		HashMap<Integer, ArrayList<LineSegment>> tileCollisionJoints = new HashMap<Integer, ArrayList<LineSegment>>();
+
+		/**
+		 * Some locations on the map (perhaps most locations) are "undefined",
+		 * empty space, and will have the tile type 0. This code adds an empty
+		 * list of line segments for this "default" tile.
+		 */
+		tileCollisionJoints.put(Integer.valueOf(0), new ArrayList<LineSegment>());
+
+		generateLineSegments(lines, tileCollisionJoints);
+		return tileCollisionJoints;
 	}
 
 	/**
@@ -148,8 +155,7 @@ public class Box2dWorld {
 			ArrayList<LineSegment> collisionLineSegments) {
 		for (int y = 0; y < mMap.getHeight(); y++) {
 			for (int x = 0; x < mMap.getWidth(); x++) {
-				int tileType = mMap.getTileId(0, x, (mMap.getHeight() - 1) - y);
-				System.out.println("tile type " + tileType);
+				int tileType = mMap.getTileId(0, x, y);
 
 				for (int n = 0; n < tileCollisionJoints.get(Integer.valueOf(tileType)).size(); n++) {
 					LineSegment lineSeg = tileCollisionJoints.get(Integer.valueOf(tileType)).get(n);

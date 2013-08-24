@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class ActorWorldMover extends WorldMover {
 
 	private Actor actor;
-	private boolean moving = false;
+	private static Position controlling = null;
 	private Vector2 pos1, pos2;
 
 	public ActorWorldMover(NinePatch patch, Position position, World world) {
@@ -26,19 +26,19 @@ public class ActorWorldMover extends WorldMover {
 		if (actor == null) {
 			return;
 		}
-		pos1.x = actor.getX();
-		pos1.y = actor.getY();
+		pos1.x = 8;
+		pos1.y = 8;
 		pos2 = actor.localToStageCoordinates(pos1);
 		pos1 = stageToLocalCoordinates(pos2);
 		if (hit(pos1.x, pos2.y, false) != null) {
 			// actor within this mover (ish kind of)
-			if (!moving) {
-				moving = true;
+			if (controlling != getPosition()) {
+				controlling = getPosition();
 				moveWorld();
 			}
 		} else {
-			if (moving) {
-				moving = false;
+			if (controlling == getPosition()) {
+				controlling = null;
 				stopWorld();
 			}
 		}

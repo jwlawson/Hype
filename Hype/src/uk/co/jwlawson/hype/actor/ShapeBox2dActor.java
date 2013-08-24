@@ -11,8 +11,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public abstract class ShapeBox2dActor extends Box2dActor {
 
 	private float density = 1f;
-	private float friction = 5f;
-	private float restitution = 0f;
+	private float friction = 0.01f;
+	private float restitution = 0.0f;
 
 	public ShapeBox2dActor(TextureRegion tex, Box2dWorld world) {
 		super(tex, world);
@@ -39,7 +39,8 @@ public abstract class ShapeBox2dActor extends Box2dActor {
 	@Override
 	protected BodyDef getBodyDef() {
 		BodyDef def = new BodyDef();
-		def.position.set(getX(), getY());
+		def.position
+				.set(getX() / Box2dWorld.PIXELS_PER_METER, getY() / Box2dWorld.PIXELS_PER_METER);
 		def.type = BodyType.DynamicBody;
 		return def;
 	}

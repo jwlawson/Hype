@@ -10,6 +10,7 @@
   <tile id="5">
    <properties>
     <property name="start" value="true"/>
+    <property name="terrain" value="start"/>
    </properties>
   </tile>
   <tile id="9">

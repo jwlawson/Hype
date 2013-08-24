@@ -27,17 +27,22 @@ public abstract class Box2dActor extends LoadAnimatableActor {
 		}
 		mBody = mWorld.addBody(bdef);
 		mBody.createFixture(fdef);
+
+		bodyCreated();
 	}
 
 	protected abstract BodyDef getBodyDef();
 
 	protected abstract FixtureDef getFixtureDef();
 
+	protected abstract void bodyCreated();
+
 	@Override
 	public void act(float delta) {
 		super.act(delta);
 		setRotation(radiansToDegrees(mBody.getAngle()));
-		setPosition(mBody.getPosition().x, mBody.getPosition().y);
+		setPosition(mBody.getPosition().x * Box2dWorld.PIXELS_PER_METER - getWidth() / 2,
+				mBody.getPosition().y * Box2dWorld.PIXELS_PER_METER - getHeight() / 2);
 	}
 
 	public void dispose() {

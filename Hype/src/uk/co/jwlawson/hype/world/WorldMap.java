@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class WorldMap {
 
 	private static final String TAG = "WorldMap";
-	private static final float SCALE = 2f;
+	private static final float SCALE = 1f;
 
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
@@ -66,8 +66,27 @@ public class WorldMap {
 		return tileWidth;
 	}
 
+	public float getScale() {
+		return SCALE;
+	}
+
 	public Vector2 findEntrance() {
 		Vector2 pos = new Vector2();
+
+		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				Cell cell = mapLayer.getCell(i, j);
+				if (cell != null) {
+					TiledMapTile tile = cell.getTile();
+					if (tile.getProperties().containsKey("start")) {
+						pos.x = i * tileWidth * SCALE;
+						pos.y = j * tileHeight * SCALE;
+						break;
+					}
+				}
+			}
+		}
 
 		return pos;
 	}

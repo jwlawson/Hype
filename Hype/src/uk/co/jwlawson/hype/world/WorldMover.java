@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 
 public class WorldMover extends NinePatchActor {
 
-	private static final float DISTANCE = 75f;
+	private static final float SPEED = 300f;
 
 	private Position position;
 	private World world;
@@ -17,9 +17,13 @@ public class WorldMover extends NinePatchActor {
 		this.world = world;
 	}
 
+	public Position getPosition() {
+		return position;
+	}
+
 	protected void moveWorld() {
-		float xMove = position.mapX(DISTANCE);
-		float yMove = position.mapY(DISTANCE);
+		float xMove = getPosition().mapX(SPEED);
+		float yMove = getPosition().mapY(SPEED);
 
 		world.moveAtSpeed(xMove, yMove);
 	}
