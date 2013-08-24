@@ -75,6 +75,14 @@ public class WorldMap extends Actor {
 	}
 
 	public Vector2 findEntrance() {
+		return findPositionOfProperty("start");
+	}
+
+	public Vector2 findExit() {
+		return findPositionOfProperty("end");
+	}
+
+	private Vector2 findPositionOfProperty(String prop) {
 		Vector2 pos = new Vector2();
 
 		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(0);
@@ -83,7 +91,7 @@ public class WorldMap extends Actor {
 				Cell cell = mapLayer.getCell(i, j);
 				if (cell != null) {
 					TiledMapTile tile = cell.getTile();
-					if (tile.getProperties().containsKey("start")) {
+					if (tile.getProperties().containsKey(prop)) {
 						pos.x = i * tileWidth * SCALE;
 						pos.y = j * tileHeight * SCALE;
 						break;

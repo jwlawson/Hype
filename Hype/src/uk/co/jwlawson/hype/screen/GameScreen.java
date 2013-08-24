@@ -1,5 +1,6 @@
 package uk.co.jwlawson.hype.screen;
 
+import uk.co.jwlawson.hype.actor.Goal;
 import uk.co.jwlawson.hype.actor.Hacker;
 import uk.co.jwlawson.hype.actor.Overlay;
 import uk.co.jwlawson.hype.actor.Underlay;
@@ -20,7 +21,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeListener {
+public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeListener,
+		Goal.WinListener {
 
 	private Stage mStage;
 	private World mWorld;
@@ -65,6 +67,12 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 		mStage.setKeyboardFocus(hacker);
 		mWorld.lookAt(pos);
 
+		Goal goal = new Goal(hacker);
+		pos = mMap.findExit();
+		goal.setBounds(pos.x, pos.y, 16, 16);
+		goal.addWinListener(this);
+		mStage.addActor(goal);
+
 		mMoverManager = new ActorWorldMoverManager(mWorld, atlas);
 		mMoverManager.setActor(hacker);
 
@@ -85,7 +93,7 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor((1 - mTR) * 0.8f, mTR * 0.2f, mTR * 0.7f + (1 - mTR) * 0.2f, 1f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
 		mStage.act(delta);
 		mBox2d.act(delta);
@@ -162,6 +170,12 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 	@Override
 	public void timeFinished() {
 		Gdx.app.log("GAmeScreen", "Game Over");
+	}
+
+	@Override
+	public void hackerWins(Hacker hacker) {
+		mTimer.stop();
+		Gdx.app.log("GameScreen", "Win!");
 	}
 
 }
