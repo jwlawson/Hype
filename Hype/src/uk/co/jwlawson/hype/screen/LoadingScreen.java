@@ -38,6 +38,8 @@ public class LoadingScreen implements Screen {
 
 		manager.setLoader(String.class, "txt", new StringLoader(new InternalFileHandleResolver()));
 		manager.load("maps/test.txt", String.class);
+
+		manager.load("fonts/test.fnt", BitmapFont.class);
 	}
 
 	@Override

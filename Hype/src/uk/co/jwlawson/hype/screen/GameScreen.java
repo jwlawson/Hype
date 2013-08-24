@@ -2,6 +2,7 @@ package uk.co.jwlawson.hype.screen;
 
 import uk.co.jwlawson.hype.actor.Hacker;
 import uk.co.jwlawson.hype.actor.Overlay;
+import uk.co.jwlawson.hype.actor.Underlay;
 import uk.co.jwlawson.hype.world.ActorWorldMoverManager;
 import uk.co.jwlawson.hype.world.Box2dWorld;
 import uk.co.jwlawson.hype.world.World;
@@ -15,7 +16,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameScreen implements Screen {
@@ -23,6 +23,7 @@ public class GameScreen implements Screen {
 	private Stage mStage;
 	private World mWorld;
 	private WorldMap mMap;
+	private Underlay mUnderlay;
 	private Overlay mOverlay;
 	private ActorWorldMoverManager mMoverManager;
 	private Box2dWorld mBox2d;
@@ -34,10 +35,17 @@ public class GameScreen implements Screen {
 	}
 
 	public void load(String mapName, AssetManager assets) {
+
+		mUnderlay = new Underlay();
+		mUnderlay.load(assets);
+		mWorld.addMoveListener(mUnderlay);
+		mStage.addActor(mUnderlay);
+
 		if (!mapName.endsWith(".tmx")) {
 			mapName = "maps/" + mapName + ".tmx";
 		}
 		mMap = new WorldMap(mapName, assets, mStage);
+		mStage.addActor(mMap);
 		mWorld.setBounds(mMap.getPixWidth(), mMap.getPixHeight());
 
 		TextureAtlas atlas = assets.get("hype.pack", TextureAtlas.class);
@@ -71,7 +79,6 @@ public class GameScreen implements Screen {
 
 		mStage.act(delta);
 		mBox2d.act(delta);
-		mMap.draw();
 		mStage.draw();
 //		mBox2d.debugDraw(mStage.getCamera());
 	}
@@ -94,14 +101,14 @@ public class GameScreen implements Screen {
 		cam.position.set(x + newWidth / 2, y - newHeight / 2, 0);
 
 		mWorld.resize(newWidth, newHeight);
+		mMoverManager.setSize(newWidth, newHeight);
+		mUnderlay.setSize(newWidth, newHeight);
 
 		// We fix the top left corner, but overlay has coords in bottom left.
 		// This means need to shift the overlay to new coord frame.
-		Group root = mStage.getRoot();
-		Overlay over = (Overlay) root.findActor("Overlay");
-		over.setPosition(x, y - newHeight);
+		mOverlay.setPosition(x, y - newHeight);
+		mUnderlay.setPosition(x, y - newHeight);
 
-		mMoverManager.setSize(newWidth, newHeight);
 	}
 
 	@Override

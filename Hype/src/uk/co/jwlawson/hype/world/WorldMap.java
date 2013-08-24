@@ -1,7 +1,9 @@
 package uk.co.jwlawson.hype.world;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -9,9 +11,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class WorldMap {
+/** Holds the TiledMap and gives convenience methods to information about it. Extends Actor so it can be added to a Stage. */
+public class WorldMap extends Actor {
 
 	private static final String TAG = "WorldMap";
 	private static final float SCALE = 1f;
@@ -50,11 +54,11 @@ public class WorldMap {
 		return pixHeight;
 	}
 
-	public int getWidth() {
+	public int getMapWidth() {
 		return width;
 	}
 
-	public int getHeight() {
+	public int getMapHeight() {
 		return height;
 	}
 
@@ -103,9 +107,12 @@ public class WorldMap {
 		return id;
 	}
 
-	public void draw() {
+	@Override
+	public void draw(SpriteBatch batch, float parentAlpha) {
+		Color col = getColor();
+		SpriteBatch bat = renderer.getSpriteBatch();
+		bat.setColor(col.r, col.g, col.b, col.a * parentAlpha);
 		renderer.setView((OrthographicCamera) stage.getCamera());
 		renderer.render();
 	}
-
 }

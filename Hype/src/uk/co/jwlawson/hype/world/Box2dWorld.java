@@ -153,8 +153,8 @@ public class Box2dWorld {
 	private void combineSegmentsIfPossible(
 			HashMap<Integer, ArrayList<LineSegment>> tileCollisionJoints,
 			ArrayList<LineSegment> collisionLineSegments) {
-		for (int y = 0; y < mMap.getHeight(); y++) {
-			for (int x = 0; x < mMap.getWidth(); x++) {
+		for (int y = 0; y < mMap.getMapHeight(); y++) {
+			for (int x = 0; x < mMap.getMapWidth(); x++) {
 				int tileType = mMap.getTileId(0, x, y);
 
 				for (int n = 0; n < tileCollisionJoints.get(Integer.valueOf(tileType)).size(); n++) {
