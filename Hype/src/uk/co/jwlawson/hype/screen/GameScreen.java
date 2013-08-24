@@ -3,6 +3,8 @@ package uk.co.jwlawson.hype.screen;
 import uk.co.jwlawson.hype.actor.Hacker;
 import uk.co.jwlawson.hype.actor.Overlay;
 import uk.co.jwlawson.hype.actor.Underlay;
+import uk.co.jwlawson.hype.timer.TimeListener;
+import uk.co.jwlawson.hype.timer.Timer;
 import uk.co.jwlawson.hype.world.ActorWorldMoverManager;
 import uk.co.jwlawson.hype.world.Box2dWorld;
 import uk.co.jwlawson.hype.world.World;
@@ -18,7 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeListener {
 
 	private Stage mStage;
 	private World mWorld;
@@ -27,6 +29,8 @@ public class GameScreen implements Screen {
 	private Overlay mOverlay;
 	private ActorWorldMoverManager mMoverManager;
 	private Box2dWorld mBox2d;
+	private Timer mTimer;
+	private float mTR = 1;
 
 	public GameScreen() {
 		mStage = new Stage(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, true);
@@ -36,9 +40,10 @@ public class GameScreen implements Screen {
 
 	public void load(String mapName, AssetManager assets) {
 
-		mUnderlay = new Underlay();
-		mUnderlay.load(assets);
-		mWorld.addMoveListener(mUnderlay);
+		TextureAtlas atlas = assets.get("hype.pack", TextureAtlas.class);
+
+		mUnderlay = new Underlay(assets, atlas);
+		mUnderlay.setVisible(true);
 		mStage.addActor(mUnderlay);
 
 		if (!mapName.endsWith(".tmx")) {
@@ -48,16 +53,14 @@ public class GameScreen implements Screen {
 		mStage.addActor(mMap);
 		mWorld.setBounds(mMap.getPixWidth(), mMap.getPixHeight());
 
-		TextureAtlas atlas = assets.get("hype.pack", TextureAtlas.class);
-
 		String collisionFile = mapName.replace("tmx", "txt");
-
 		mBox2d = new Box2dWorld(mMap);
 		mBox2d.loadCollisions(collisionFile, assets);
 
 		Hacker hacker = new Hacker(atlas, mBox2d);
 		Vector2 pos = mMap.findEntrance();
 		hacker.setBounds(pos.x, pos.y, 16, 16);
+		hacker.addFirstKeyDownListener(this);
 		mStage.addActor(hacker);
 		mStage.setKeyboardFocus(hacker);
 		mWorld.lookAt(pos);
@@ -70,11 +73,18 @@ public class GameScreen implements Screen {
 		mMoverManager.addToOverlay(mOverlay);
 		mWorld.addMoveListener(mOverlay);
 		mStage.addActor(mOverlay);
+
+		mWorld.addMoveListener(mUnderlay);
+
+		mTimer = new Timer();
+		mTimer.addTimeListener(mUnderlay);
+		mTimer.addTimeListener(this);
+		mStage.addActor(mTimer);
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.0f, 0.2f, 0.7f, 1f);
+		Gdx.gl.glClearColor((1 - mTR) * 0.8f, mTR * 0.2f, mTR * 0.7f + (1 - mTR) * 0.2f, 1f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		mStage.act(delta);
@@ -113,32 +123,45 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-
+		mTimer.stop();
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		mStage.dispose();
+	}
 
+	@Override
+	public void onFirstKeyDown() {
+		mTimer.start();
+	}
+
+	@Override
+	public void secondsDropped(int secondsRemaining) {
+	}
+
+	@Override
+	public void timeRemaining(float timeRemaining) {
+		mTR = timeRemaining / 10;
+	}
+
+	@Override
+	public void timeFinished() {
+		Gdx.app.log("GAmeScreen", "Game Over");
 	}
 
 }

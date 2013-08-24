@@ -3,9 +3,16 @@ hype.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+blob
+  rotate: false
+  xy: 232, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 blue
   rotate: false
-  xy: 268, 4
+  xy: 286, 4
   size: 14, 14
   split: 2, 2, 2, 2
   pad: 3, 3, 3, 3
@@ -14,7 +21,7 @@ blue
   index: -1
 char
   rotate: false
-  xy: 232, 2
+  xy: 250, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -42,7 +49,7 @@ char.walkright
   index: -1
 green
   rotate: false
-  xy: 250, 2
+  xy: 268, 2
   size: 16, 16
   split: 2, 2, 2, 2
   pad: 3, 3, 3, 3

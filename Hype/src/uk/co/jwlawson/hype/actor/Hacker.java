@@ -1,5 +1,8 @@
 package uk.co.jwlawson.hype.actor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import uk.co.jwlawson.hype.world.Box2dWorld;
 
 import com.badlogic.gdx.Input.Keys;
@@ -14,12 +17,15 @@ public class Hacker extends RectBox2dActor {
 	private static final String NAME = "char";
 	private State state = State.STOPPED;
 	private boolean left, right;
+	private boolean first = true;
+	private List<FirstKeyDownListener> firstListeners;
 
 	public Hacker(TextureAtlas atlas, Box2dWorld world) {
 		super(atlas.findRegion(NAME), world);
 		setId(NAME);
 		load(atlas, "stand", "walkleft", "walkright");
 		addListener(new ControlListener());
+		firstListeners = new ArrayList<Hacker.FirstKeyDownListener>(2);
 	}
 
 	@Override
@@ -33,6 +39,14 @@ public class Hacker extends RectBox2dActor {
 		BodyDef def = super.getBodyDef();
 		def.fixedRotation = true;
 		return def;
+	}
+
+	public void addFirstKeyDownListener(FirstKeyDownListener lis) {
+		firstListeners.add(lis);
+	}
+
+	public void resetFirst() {
+		first = true;
 	}
 
 	private void setState(State nextState) {
@@ -51,6 +65,12 @@ public class Hacker extends RectBox2dActor {
 
 		@Override
 		public boolean keyDown(InputEvent event, int keycode) {
+			if (first) {
+				for (FirstKeyDownListener lis : firstListeners) {
+					lis.onFirstKeyDown();
+				}
+				first = false;
+			}
 			switch (keycode) {
 			case Keys.D:
 			case Keys.RIGHT:
@@ -122,6 +142,10 @@ public class Hacker extends RectBox2dActor {
 		public Vector2 getVelocity() {
 			return velocity;
 		}
+	}
+
+	public interface FirstKeyDownListener {
+		public void onFirstKeyDown();
 	}
 
 }

@@ -109,10 +109,14 @@ public class WorldMap extends Actor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		batch.end();
+
 		Color col = getColor();
 		SpriteBatch bat = renderer.getSpriteBatch();
 		bat.setColor(col.r, col.g, col.b, col.a * parentAlpha);
 		renderer.setView((OrthographicCamera) stage.getCamera());
 		renderer.render();
+
+		batch.begin();
 	}
 }

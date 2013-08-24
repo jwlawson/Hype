@@ -40,6 +40,7 @@ public class LoadingScreen implements Screen {
 		manager.load("maps/test.txt", String.class);
 
 		manager.load("fonts/test.fnt", BitmapFont.class);
+		manager.load("fonts/calibri196.fnt", BitmapFont.class);
 	}
 
 	@Override
