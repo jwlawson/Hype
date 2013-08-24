@@ -1,0 +1,51 @@
+
+hype.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+blue
+  rotate: false
+  xy: 268, 4
+  size: 14, 14
+  split: 2, 2, 2, 2
+  pad: 3, 3, 3, 3
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+char
+  rotate: false
+  xy: 232, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+char.stand
+  rotate: false
+  xy: 198, 2
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+char.walkleft
+  rotate: false
+  xy: 2, 2
+  size: 96, 16
+  orig: 96, 16
+  offset: 0, 0
+  index: -1
+char.walkright
+  rotate: false
+  xy: 100, 2
+  size: 96, 16
+  orig: 96, 16
+  offset: 0, 0
+  index: -1
+green
+  rotate: false
+  xy: 250, 2
+  size: 16, 16
+  split: 2, 2, 2, 2
+  pad: 3, 3, 3, 3
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
