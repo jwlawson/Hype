@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 
 public class WorldMover extends NinePatchActor {
 
-	private static final float SPEED = 300f;
+	private static final float SPEED = 240f;
 
 	private Position position;
 	private World world;
@@ -35,13 +35,13 @@ public class WorldMover extends NinePatchActor {
 	public enum Position {
 
 		TOP(0, 1),
-		TOP_LEFT(-1 / Math.sqrt(2), 1 / Math.sqrt(2)),
+		TOP_LEFT(-1, 1),
 		LEFT(-1, 0),
-		BOTTOM_LEFT(-1 / Math.sqrt(2), -1 / Math.sqrt(2)),
+		BOTTOM_LEFT(-1, -1),
 		BOTTOM(0, -1),
-		BOTTOM_RIGHT(1 / Math.sqrt(2), -1 / Math.sqrt(2)),
+		BOTTOM_RIGHT(1, -1),
 		RIGHT(1, 0),
-		TOP_RIGHT(1 / Math.sqrt(2), 1 / Math.sqrt(2));
+		TOP_RIGHT(1, 1);
 
 		private double x, y;
 

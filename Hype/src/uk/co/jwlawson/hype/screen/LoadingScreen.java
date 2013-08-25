@@ -35,9 +35,11 @@ public class LoadingScreen implements Screen {
 		manager.load("hype.pack", TextureAtlas.class);
 		manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		manager.load("maps/test.tmx", TiledMap.class);
+		manager.load("maps/1.tmx", TiledMap.class);
 
 		manager.setLoader(String.class, "txt", new StringLoader(new InternalFileHandleResolver()));
 		manager.load("maps/test.txt", String.class);
+		manager.load("maps/terrain2.txt", String.class);
 
 		manager.load("fonts/test.fnt", BitmapFont.class);
 		manager.load("fonts/calibri196.fnt", BitmapFont.class);

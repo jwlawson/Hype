@@ -123,8 +123,8 @@ public class Hacker extends RectBox2dActor {
 	}
 
 	private enum State {
-		MOVING_LEFT("walkleft", new Vector2(-5f, 0)),
-		MOVING_RIGHT("walkright", new Vector2(5f, 0)),
+		MOVING_LEFT("walkleft", new Vector2(-4f, 0)),
+		MOVING_RIGHT("walkright", new Vector2(4f, 0)),
 		STOPPED("stand", new Vector2(0, 0));
 
 		private String animation;

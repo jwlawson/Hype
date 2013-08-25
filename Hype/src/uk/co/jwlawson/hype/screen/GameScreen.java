@@ -51,11 +51,12 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 		if (!mapName.endsWith(".tmx")) {
 			mapName = "maps/" + mapName + ".tmx";
 		}
+		System.out.println(mapName);
 		mMap = new WorldMap(mapName, assets, mStage);
 		mStage.addActor(mMap);
 		mWorld.setBounds(mMap.getPixWidth(), mMap.getPixHeight());
 
-		String collisionFile = mapName.replace("tmx", "txt");
+		String collisionFile = "maps/terrain2.txt";
 		mBox2d = new Box2dWorld(mMap);
 		mBox2d.loadCollisions(collisionFile, assets);
 
@@ -77,7 +78,7 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 		mMoverManager.setActor(hacker);
 
 		mOverlay = new Overlay();
-		mOverlay.setVisible(false);
+		mOverlay.setVisible(true);
 		mMoverManager.addToOverlay(mOverlay);
 		mWorld.addMoveListener(mOverlay);
 		mStage.addActor(mOverlay);

@@ -19,7 +19,7 @@ public class MyGame extends Game {
 	}
 
 	public void finishedLoading(AssetManager manager) {
-		game.load("test", manager);
+		game.load("1", manager);
 		setScreen(game);
 	}
 
