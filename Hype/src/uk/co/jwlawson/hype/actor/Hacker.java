@@ -8,7 +8,9 @@ import uk.co.jwlawson.hype.world.Box2dWorld;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
@@ -31,6 +33,7 @@ public class Hacker extends RectBox2dActor {
 	@Override
 	public void act(float delta) {
 		mBody.setLinearVelocity(state.getVelocity().x, mBody.getLinearVelocity().y);
+		System.out.println("position: " + mBody.getWorldCenter());
 		super.act(delta);
 	}
 
@@ -39,6 +42,12 @@ public class Hacker extends RectBox2dActor {
 		BodyDef def = super.getBodyDef();
 		def.fixedRotation = true;
 		return def;
+	}
+
+	@Override
+	protected void bodyCreated(Body body, Fixture fixture) {
+		super.bodyCreated(body, fixture);
+		fixture.setUserData(this);
 	}
 
 	public void addFirstKeyDownListener(FirstKeyDownListener lis) {

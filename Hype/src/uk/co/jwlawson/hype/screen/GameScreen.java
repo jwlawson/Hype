@@ -2,12 +2,14 @@ package uk.co.jwlawson.hype.screen;
 
 import uk.co.jwlawson.hype.actor.Goal;
 import uk.co.jwlawson.hype.actor.Hacker;
+import uk.co.jwlawson.hype.actor.Laser.LaserHitListener;
 import uk.co.jwlawson.hype.actor.Overlay;
 import uk.co.jwlawson.hype.actor.Underlay;
 import uk.co.jwlawson.hype.timer.TimeListener;
 import uk.co.jwlawson.hype.timer.Timer;
 import uk.co.jwlawson.hype.world.ActorWorldMoverManager;
 import uk.co.jwlawson.hype.world.Box2dWorld;
+import uk.co.jwlawson.hype.world.LaserLoader;
 import uk.co.jwlawson.hype.world.World;
 import uk.co.jwlawson.hype.world.WorldMap;
 
@@ -22,7 +24,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeListener,
-		Goal.WinListener {
+		Goal.WinListener, LaserHitListener {
 
 	private Stage mStage;
 	private World mWorld;
@@ -33,10 +35,10 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 	private Box2dWorld mBox2d;
 	private Timer mTimer;
 	private float mTR = 1;
+	private LaserLoader mLaserLoader;
 
 	public GameScreen() {
 		mStage = new Stage(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, true);
-		Gdx.input.setInputProcessor(mStage);
 		mWorld = new World(mStage);
 	}
 
@@ -48,17 +50,21 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 		mUnderlay.setVisible(true);
 		mStage.addActor(mUnderlay);
 
-		if (!mapName.endsWith(".tmx")) {
-			mapName = "maps/" + mapName + ".tmx";
-		}
-		System.out.println(mapName);
-		mMap = new WorldMap(mapName, assets, mStage);
+		String mapFileName = "maps/" + mapName + ".tmx";
+		mMap = new WorldMap(mapFileName, assets, mStage);
 		mStage.addActor(mMap);
 		mWorld.setBounds(mMap.getPixWidth(), mMap.getPixHeight());
 
 		String collisionFile = "maps/terrain2.txt";
 		mBox2d = new Box2dWorld(mMap);
 		mBox2d.loadCollisions(collisionFile, assets);
+
+		String laserFileName = "maps/" + mapName + ".txt";
+		mLaserLoader = new LaserLoader(mMap);
+		mLaserLoader.load(laserFileName, assets, atlas, mBox2d);
+		mLaserLoader.addToStage(mStage);
+		mLaserLoader.addLaserHitListener(this);
+		System.out.println("Lasers loaded");
 
 		Hacker hacker = new Hacker(atlas, mBox2d);
 		Vector2 pos = mMap.findEntrance();
@@ -78,7 +84,7 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 		mMoverManager.setActor(hacker);
 
 		mOverlay = new Overlay();
-		mOverlay.setVisible(true);
+		mOverlay.setVisible(false);
 		mMoverManager.addToOverlay(mOverlay);
 		mWorld.addMoveListener(mOverlay);
 		mStage.addActor(mOverlay);
@@ -89,23 +95,24 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 		mTimer.addTimeListener(mUnderlay);
 		mTimer.addTimeListener(this);
 		mStage.addActor(mTimer);
+
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor((1 - mTR) * 0.8f, mTR * 0.2f, mTR * 0.7f + (1 - mTR) * 0.2f, 1f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-
 		mStage.act(delta);
 		mBox2d.act(delta);
+
+		Gdx.gl.glClearColor((1 - mTR) * 0.8f, mTR * 0.2f, mTR * 0.7f + (1 - mTR) * 0.2f, 1f);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		mStage.draw();
-//		mBox2d.debugDraw(mStage.getCamera());
+		mBox2d.debugDraw(mStage.getCamera());
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		width /= 2;
-		height /= 2;
+		width /= 3;
+		height /= 3;
 		Camera cam = mStage.getCamera();
 		Vector3 pos = cam.position;
 		float x = pos.x - cam.viewportWidth / 2;
@@ -130,8 +137,13 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 
 	}
 
+	private void gameOver() {
+		Gdx.app.log("GAmeScreen", "Game Over");
+	}
+
 	@Override
 	public void show() {
+		Gdx.input.setInputProcessor(mStage);
 	}
 
 	@Override
@@ -157,6 +169,8 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 	@Override
 	public void onFirstKeyDown() {
 		mTimer.start();
+		System.out.println("Lasers starting");
+		mLaserLoader.startFiring();
 	}
 
 	@Override
@@ -170,7 +184,7 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 
 	@Override
 	public void timeFinished() {
-		Gdx.app.log("GAmeScreen", "Game Over");
+		gameOver();
 	}
 
 	@Override
@@ -179,4 +193,8 @@ public class GameScreen implements Screen, Hacker.FirstKeyDownListener, TimeList
 		Gdx.app.log("GameScreen", "Win!");
 	}
 
+	@Override
+	public void hackerHitbyLaser(Hacker hacker) {
+		gameOver();
+	}
 }

@@ -3,6 +3,8 @@ package uk.co.jwlawson.hype.actor;
 import uk.co.jwlawson.hype.world.Box2dWorld;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class RectBox2dActor extends ShapeBox2dActor {
@@ -24,7 +26,7 @@ public class RectBox2dActor extends ShapeBox2dActor {
 	}
 
 	@Override
-	protected void bodyCreated() {
+	protected void bodyCreated(Body body, Fixture fixture) {
 		shape.dispose();
 	}
 

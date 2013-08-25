@@ -5,54 +5,165 @@ filter: Nearest,Nearest
 repeat: none
 blob
   rotate: false
-  xy: 232, 2
+  xy: 166, 86
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 blue
   rotate: false
-  xy: 286, 4
+  xy: 74, 16
   size: 14, 14
   split: 2, 2, 2, 2
   pad: 3, 3, 3, 3
   orig: 14, 14
   offset: 0, 0
   index: -1
+button
+  rotate: false
+  xy: 232, 104
+  size: 16, 16
+  split: 5, 5, 5, 5
+  pad: 7, 7, 7, 7
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+button.click
+  rotate: false
+  xy: 74, 50
+  size: 16, 16
+  split: 5, 5, 5, 5
+  pad: 7, 7, 6, 7
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 char
   rotate: false
-  xy: 250, 2
+  xy: 102, 68
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 char.stand
   rotate: false
-  xy: 198, 2
+  xy: 68, 68
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 char.walkleft
   rotate: false
-  xy: 2, 2
+  xy: 2, 104
   size: 96, 16
   orig: 96, 16
   offset: 0, 0
   index: -1
 char.walkright
   rotate: false
-  xy: 100, 2
+  xy: 2, 86
   size: 96, 16
   orig: 96, 16
   offset: 0, 0
   index: -1
 green
   rotate: false
-  xy: 268, 2
+  xy: 184, 86
   size: 16, 16
   split: 2, 2, 2, 2
   pad: 3, 3, 3, 3
   orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.bottom
+  rotate: false
+  xy: 74, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.bottom.fire
+  rotate: false
+  xy: 100, 104
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+laser.bottom.prepare
+  rotate: false
+  xy: 2, 68
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+laser.left
+  rotate: false
+  xy: 92, 50
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.left.fire
+  rotate: false
+  xy: 2, 2
+  size: 16, 64
+  orig: 16, 64
+  offset: 0, 0
+  index: -1
+laser.left.prepare
+  rotate: false
+  xy: 20, 2
+  size: 16, 64
+  orig: 16, 64
+  offset: 0, 0
+  index: -1
+laser.right
+  rotate: false
+  xy: 120, 68
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.right.fire
+  rotate: false
+  xy: 38, 2
+  size: 16, 64
+  orig: 16, 64
+  offset: 0, 0
+  index: -1
+laser.right.prepare
+  rotate: false
+  xy: 56, 2
+  size: 16, 64
+  orig: 16, 64
+  offset: 0, 0
+  index: -1
+laser.top
+  rotate: false
+  xy: 202, 86
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.top.fire
+  rotate: false
+  xy: 100, 86
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+laser.top.prepare
+  rotate: false
+  xy: 166, 104
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+laserbeam
+  rotate: false
+  xy: 250, 111
+  size: 3, 9
+  split: 1, 0, 1, 1
+  pad: 1, 0, 1, 0
+  orig: 3, 9
   offset: 0, 0
   index: -1

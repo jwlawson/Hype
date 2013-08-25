@@ -6,6 +6,7 @@ import uk.co.jwlawson.hype.world.Box2dWorld;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 public abstract class Box2dActor extends LoadAnimatableActor {
@@ -26,16 +27,16 @@ public abstract class Box2dActor extends LoadAnimatableActor {
 			mWorld.removeBodySafely(mBody);
 		}
 		mBody = mWorld.addBody(bdef);
-		mBody.createFixture(fdef);
+		Fixture fix = mBody.createFixture(fdef);
 
-		bodyCreated();
+		bodyCreated(mBody, fix);
 	}
 
 	protected abstract BodyDef getBodyDef();
 
 	protected abstract FixtureDef getFixtureDef();
 
-	protected abstract void bodyCreated();
+	protected abstract void bodyCreated(Body body, Fixture fixture);
 
 	@Override
 	public void act(float delta) {

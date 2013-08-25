@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.JointEdge;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Box2dWorld {
@@ -65,6 +66,17 @@ public class Box2dWorld {
 		}
 		// actual remove
 		mWorld.destroyBody(body);
+	}
+
+	/**
+	 * Ray-cast the world for all fixtures in the path of the ray. The ray-cast ignores shapes that contain the starting point.
+	 * 
+	 * @param callback a user implemented callback class.
+	 * @param point1 the ray starting point
+	 * @param point2 the ray ending point
+	 */
+	public void rayCast(RayCastCallback callback, Vector2 point1, Vector2 point2) {
+		mWorld.rayCast(callback, point1, point2);
 	}
 
 	/**
