@@ -106,5 +106,9 @@ public class Laser extends Group {
 			return allValues[n];
 		}
 
+		public float getxScale() {
+			return xScale;
+		}
+
 	}
 }

@@ -1,0 +1,14 @@
+% 1: x tile
+% 2: y tile
+% 3: Regular (1) or irregular(0)
+% 4: Bottom(0) Top(1) Left(2) Right(3)
+% 5 onwards: Irregular intervals
+% 5: regular on interval
+% 6: regular off interval
+40 42 0 2 0 0.5 2 10
+40 41 0 2 0 0.5 2 10
+40 40 0 2 0 0.5 2 10
+40 39 0 2 0 0.5 2 10
+45 31 1 1 1 1
+45 30 1 0 1 1
+

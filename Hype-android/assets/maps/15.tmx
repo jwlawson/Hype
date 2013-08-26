@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="50" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" source="terrain2.tsx"/>
+ <layer name="Tile Layer 1" width="100" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztmM1ugzAQhLe/UmhTqS0cIORAyAXC+z9fvOqsbKGESxXWEvNJIwz2spaNzcgihBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghyzwFPQe9LNRtWbfG5ZHsgpqgjzt1Q9AxqA86BbVBE8oj7hu0qYIukN53aDehXKF9B11Qr9ciqEa+Nrk/o17bl8hZol2D+FPSB4s5JrFn9H9CuU3aFXhe4Z3WpwG5bo3LI9mhL7fyfgf9bFRv8vcNeMxH65A3d3RcdB16zMfJIW/u6Ljo3uUxH4VD3tzRcdF/kOf6+Fo5d87ouKgH8Pqff4q/t8zJz3ruV/o/Tz2t+gr1e+oHda4OuB4l+ke7Wpy2Uc9Zoqx74Ji0nZL4EfUF6s3zNrgvJXpnfXeNOqvvUR6Qq0z6PUr0weadh+S5efSz3Pf5Ni5e60Pzvoq/x/TQ78K4ePndpe9kq3juV7VD3tzx8p1e30Gu2JndXnz2jbnPfl85f27Yf0M9gtf60Lxb9btz7SV6P/VuXuujhkaJZ5/mJ/VZhee6t9kZr31H5kvNY/aztg3eM0n0nRfETlAh0fPaWWuHuE6i360lni2bv60Q3yFfn+S2eOtrNevrAde0bOe/Wl57PrZ8hvsfP0wIeTxXAqst2A==
+  </data>
+ </layer>
+</map>

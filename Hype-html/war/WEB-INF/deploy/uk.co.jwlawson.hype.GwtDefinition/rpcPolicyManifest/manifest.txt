@@ -1,0 +1,2 @@
+# Module uk.co.jwlawson.hype.GwtDefinition
+# RPC service class, partial path of RPC policy file

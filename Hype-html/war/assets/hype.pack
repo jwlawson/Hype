@@ -1,0 +1,267 @@
+
+hype.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+blob
+  rotate: false
+  xy: 166, 97
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+blue
+  rotate: false
+  xy: 358, 116
+  size: 14, 14
+  split: 2, 2, 2, 2
+  pad: 3, 3, 3, 3
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+button
+  rotate: false
+  xy: 488, 234
+  size: 16, 16
+  split: 5, 5, 5, 5
+  pad: 7, 7, 7, 7
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+button.click
+  rotate: false
+  xy: 134, 79
+  size: 16, 16
+  split: 5, 5, 5, 5
+  pad: 7, 7, 6, 7
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+char
+  rotate: false
+  xy: 106, 61
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+char.stand
+  rotate: false
+  xy: 324, 116
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+char.walkleft
+  rotate: false
+  xy: 2, 97
+  size: 96, 16
+  orig: 96, 16
+  offset: 0, 0
+  index: -1
+char.walkright
+  rotate: false
+  xy: 324, 234
+  size: 96, 16
+  orig: 96, 16
+  offset: 0, 0
+  index: -1
+green
+  rotate: false
+  xy: 462, 216
+  size: 16, 16
+  split: 2, 2, 2, 2
+  pad: 3, 3, 3, 3
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+hype
+  rotate: false
+  xy: 2, 115
+  size: 320, 135
+  orig: 320, 135
+  offset: 0, 0
+  index: -1
+laser.bottom
+  rotate: false
+  xy: 426, 148
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.bottom.fire
+  rotate: false
+  xy: 2, 79
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+laser.bottom.prepare
+  rotate: false
+  xy: 100, 97
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+laser.left
+  rotate: false
+  xy: 184, 97
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.left.fire
+  rotate: false
+  xy: 324, 168
+  size: 16, 64
+  orig: 16, 64
+  offset: 0, 0
+  index: -1
+laser.left.prepare
+  rotate: false
+  xy: 2, 13
+  size: 16, 64
+  orig: 16, 64
+  offset: 0, 0
+  index: -1
+laser.right
+  rotate: false
+  xy: 152, 79
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.right.fire
+  rotate: false
+  xy: 342, 168
+  size: 16, 64
+  orig: 16, 64
+  offset: 0, 0
+  index: -1
+laser.right.prepare
+  rotate: false
+  xy: 20, 13
+  size: 16, 64
+  orig: 16, 64
+  offset: 0, 0
+  index: -1
+laser.top
+  rotate: false
+  xy: 106, 43
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+laser.top.fire
+  rotate: false
+  xy: 422, 234
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+laser.top.prepare
+  rotate: false
+  xy: 68, 79
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+laserbeam
+  rotate: false
+  xy: 2, 2
+  size: 3, 9
+  split: 1, 0, 1, 1
+  pad: 1, 0, 1, 0
+  orig: 3, 9
+  offset: 0, 0
+  index: -1
+map1
+  rotate: false
+  xy: 324, 134
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map10
+  rotate: false
+  xy: 360, 200
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map11
+  rotate: false
+  xy: 38, 45
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map12
+  rotate: false
+  xy: 394, 200
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map13
+  rotate: false
+  xy: 72, 45
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map2
+  rotate: false
+  xy: 428, 200
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map3
+  rotate: false
+  xy: 360, 166
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map4
+  rotate: false
+  xy: 394, 166
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map5
+  rotate: false
+  xy: 428, 166
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map6
+  rotate: false
+  xy: 38, 13
+  size: 32, 30
+  orig: 32, 30
+  offset: 0, 0
+  index: -1
+map7
+  rotate: false
+  xy: 72, 11
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map8
+  rotate: false
+  xy: 358, 132
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+map9
+  rotate: false
+  xy: 392, 132
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

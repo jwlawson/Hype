@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="50" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" source="terrain2.tsx"/>
+ <layer name="Tile Layer 1" width="100" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2MsKwjAQheGoKFhF8LbobeFlY+v7P58zdgrZVBBDE/X/4NCSpmnoIFN0DgAAAAAAAAAAhLaIvQE8TSTTAJmNvfEftZQcJbmklWR2rilsrJaUkosddfxg953sfDX2xn/UVrL7MHNHPVKivzHqkY6heoTqTd+YmP10qB46fnVdD9Kj9ptGUrmuJ2mPulhqm9Nfv7uuN51svLLc7Frf5/S88NYqbH5tcxp7bmZzW1vTf05u6+pY6a3X99XS27vef/b2XXp76PtqNfA+xjJUjxC96Vuzf/sthkP/SAv1SAv1SMs/1mMTewMvaD3WLv43Zuyk8p/RP39HpfJNBQAAAAAAAAAAAAAAENoDzeUWBw==
+  </data>
+ </layer>
+</map>

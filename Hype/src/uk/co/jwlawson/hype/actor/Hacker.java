@@ -33,7 +33,6 @@ public class Hacker extends RectBox2dActor {
 	@Override
 	public void act(float delta) {
 		mBody.setLinearVelocity(state.getVelocity().x, mBody.getLinearVelocity().y);
-		System.out.println("position: " + mBody.getWorldCenter());
 		super.act(delta);
 	}
 
@@ -96,6 +95,11 @@ public class Hacker extends RectBox2dActor {
 			case Keys.SPACE:
 				jump();
 				return true;
+			case Keys.ESCAPE:
+				for (FirstKeyDownListener lis : firstListeners) {
+					lis.onEscKeyDown();
+				}
+				return true;
 			}
 			return super.keyDown(event, keycode);
 		}
@@ -155,6 +159,8 @@ public class Hacker extends RectBox2dActor {
 
 	public interface FirstKeyDownListener {
 		public void onFirstKeyDown();
+
+		public void onEscKeyDown();
 	}
 
 }

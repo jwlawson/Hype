@@ -9,7 +9,6 @@ public class LaserBase extends LoadAnimatableActor {
 
 	public LaserBase(TextureAtlas atlas, Laser.Position pos) {
 		super(atlas.findRegion(pos.getName()));
-		System.out.println(atlas.findRegion(pos.getName()));
 		setId(pos.getName());
 		load(atlas, "prepare", "fire");
 	}

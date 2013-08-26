@@ -11,9 +11,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public abstract class WorldMoverManager {
 
 	private static final String TAG = "WorldMoverManager";
-	private static final int MOVER_SIZE_X = 100;
-	private static final int MOVER_SIZE_Y = 50;
-	private static final int EXTRA = 100;
+	private static final int MOVER_SIZE_X = 130;
+	private static final int MOVER_SIZE_Y = 70;
+	private static final int EXTRA = 300;
 
 	protected HashMap<Position, WorldMover> movers = new HashMap<Position, WorldMover>();
 

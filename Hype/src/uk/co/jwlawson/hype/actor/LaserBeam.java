@@ -13,7 +13,7 @@ public class LaserBeam extends NinePatchActor {
 
 	private static final String NAME = "laserbeam";
 	private static final int BEAM_WIDTH = 2;
-	private static final float SPEED = 10f;
+	private static final float SPEED = 70f;
 	private Position pos;
 	private Box2dWorld world;
 	private Laser laser;
@@ -23,6 +23,7 @@ public class LaserBeam extends NinePatchActor {
 	private boolean movingEnd = false;
 	private boolean movingStart = false;
 	private boolean invalidBounds = false;
+	private float lastXDiff, lastYDiff, currXDiff, currYDiff;
 
 	public LaserBeam(TextureAtlas atlas, Position pos, Box2dWorld world, Laser laser) {
 		super(atlas.createPatch(NAME));
@@ -40,15 +41,15 @@ public class LaserBeam extends NinePatchActor {
 	public void setStart(float x, float y) {
 		start.set(x, y);
 		end.set(x, y);
-		pos.extend(start, 1);
-		pos.extend(end, 2);
+		pos.extend(start, 3);
+		pos.extend(end, 5);
 	}
 
 	public void setStart(Vector2 start) {
-		pos.extend(start, 1);
+		pos.extend(start, 3);
 		this.start.set(start);
 		this.end.set(start);
-		pos.extend(this.end, 1);
+		pos.extend(this.end, 2);
 	}
 
 	protected void fireLaser() {
@@ -68,32 +69,38 @@ public class LaserBeam extends NinePatchActor {
 		timeBuffer -= delta;
 		if (timeBuffer < 0 && start.dst(end) > 2) {
 			scaledStart.set(start);
-			System.out.println(scaledStart + " " + getParent().getX());
 			getParent().localToStageCoordinates(scaledStart);
-			System.out.println(scaledStart);
 			scaledStart.scl(1 / Box2dWorld.PIXELS_PER_METER);
 			scaledEnd.set(end);
-			System.out.println(scaledEnd + " END " + getParent().getY());
 			getParent().localToStageCoordinates(scaledEnd);
-			System.out.println(scaledEnd);
 			scaledEnd.scl(1 / Box2dWorld.PIXELS_PER_METER);
-			System.out.println(pos + "" + scaledStart + " " + scaledEnd);
 			world.rayCast(callback, scaledStart, scaledEnd);
 		}
 		if (invalidBounds) {
-//			System.out.println(pos + "updating bounds");
 			updateBounds(delta);
 		}
 		if (movingEnd) {
-//			System.out.println(pos + "moving end from " + end);
 			pos.extend(end, delta * SPEED);
-//			System.out.println(" to " + end);
 			invalidBounds = true;
 		}
 		if (movingStart) {
-//			System.out.println(pos + "moving start from " + start);
 			pos.extend(start, delta * SPEED);
-//			System.out.println("to " + start + " end is " + end);
+			currXDiff = start.x - end.x;
+			currYDiff = start.y - end.y;
+
+			if (pos.getxScale() == 0) {
+				if ((0 < Math.max(currYDiff, lastYDiff)) && (0 > Math.min(currYDiff, lastYDiff))) {
+					movingStart = false;
+					laser.free(this);
+				}
+			} else if ((0 < Math.max(currXDiff, lastXDiff) && (0 > Math.min(currXDiff, lastXDiff)))) {
+				// start has just gone past end
+				movingStart = false;
+				laser.free(this);
+			}
+
+			lastXDiff = currXDiff;
+			lastYDiff = currYDiff;
 			invalidBounds = true;
 		}
 
@@ -122,22 +129,18 @@ public class LaserBeam extends NinePatchActor {
 
 		@Override
 		public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
-			System.out.println("Ray hit!" + pos);
 			Object obj = fixture.getUserData();
-			System.out.println(obj + " " + movingEnd);
 			if (obj != null && obj instanceof Hacker) {
 				laser.hackerHit((Hacker) obj);
 			} else if (movingEnd) {
-				System.out.println("point: " + point);
 				end.set(point);
 				end.scl(Box2dWorld.PIXELS_PER_METER);
-				System.out.println("scaled point: " + end);
 				getParent().stageToLocalCoordinates(end);
-				System.out.println("end: " + end);
+				pos.extend(end, -1);
 				movingEnd = false;
 				invalidBounds = true;
 			} else {
-
+				movingStart = false;
 			}
 			return 0;
 		}

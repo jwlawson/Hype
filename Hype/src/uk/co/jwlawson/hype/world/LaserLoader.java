@@ -53,7 +53,6 @@ public class LaserLoader {
 				continue;
 			}
 			String[] split = line.split(" ");
-			System.out.println(line + " " + split.length);
 			int xTile = Integer.parseInt(split[0]);
 			int yTile = Integer.parseInt(split[1]);
 			int type = Integer.parseInt(split[2]);
